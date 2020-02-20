@@ -1,0 +1,27 @@
+.row {
+	display: block;
+	width: 60vw;
+	padding: 20px;
+	border: 2px solid black;
+	&__head {
+		margin-bottom: 15px;
+		h1 {
+			display: block;
+			margin: 0;
+		}
+	}
+	&__head-btn {
+		width: 12vw;
+	}
+	&__body {
+		margin-bottom: 12px;
+		padding: 10px;
+		border: 1px dashed black;
+		h2 {
+			margin: 0;
+		}
+	}
+	&__bottom {
+		padding: 10px;
+	}
+}
