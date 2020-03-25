@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Task from '../Task';
 import TodoList from '../TodoList';
 import AddItems from '../AddItems';
 
@@ -6,7 +7,7 @@ import './index.scss';
 
 export default class Row extends Component {
 
-	maxId = 100;
+	childId = 0;
 
 	// state = {
 	// 	id: 0,
@@ -21,74 +22,82 @@ export default class Row extends Component {
 	// };
 
 	state = {
-		row0: {
-			id: 0,
-			isOpen: false,
-			isAdd: false,
-			isAllDone: false,
-			todoData: [
-				this.createItem('Drink tea'),
-				this.createItem('Drink protein'),
-				this.createItem('Eat meat'),
-			]
-		},
-		row1: {
-			id: 1,
-			isOpen: false,
-			isAdd: false,
-			isAllDone: false,
-			todoData: [
-				this.createItem('Drink coffee'),
-			]
-		},
+		tasks: [
+			{
+				name: "Heaven",
+				id: 0,
+				isCheckedAll: false,
+				todoData: [
+					this.createItem('Drink tea'),
+					this.createItem('Drink protein'),
+					this.createItem('Eat meat'),
+				]
+			},
+			{
+				name: "Hell",
+				id: 1,
+				isCheckedAll: false,
+				todoData: [
+					this.createItem('Drink beer'),
+				]
+			},
+		],
+		create: false
 	};
-
-	onOpen = () => {
-		this.setState({ isOpen: !this.state.isOpen });
-		this.setState({ isAdd: false });
-	}
-
-	onAdd = () => {
-		this.setState({
-			isOpen: true,
-			isAdd: !this.state.isAdd
-		});
-	}
 
 	createItem(label) {
 		return {
 			label,
 			important: false,
 			done: false,
-			id: this.maxId++
+			id: this.childId++
 		}
 	}
 
+	// deleteItem = (id) => {
+	// 	this.setState(({ todoData }) => {
+	// 		const index = todoData.findIndex((el) => el.id === id);
+
+	// 		const newArr = [
+	// 			...todoData.slice(0, index),
+	// 			...todoData.slice(index + 1)
+	// 		];
+
+	// 		return {
+	// 			todoData: newArr
+	// 		};
+	// 	});
+	// }
+
 	deleteItem = (id) => {
-		this.setState(({ todoData }) => {
-			const index = todoData.findIndex((el) => el.id === id);
+		// const {tasks} = this.state;
+		console.log(id)
+		// tasks.map(item => {
+			// this.setState(({ todoData }) => {
+			// 	const index = todoData.findIndex((el) => el.id === id);
 
-			const newArr = [
-				...todoData.slice(0, index),
-				...todoData.slice(index + 1)
-			];
+			// 	const newArr = [
+			// 		...todoData.slice(0, index),
+			// 		...todoData.slice(index + 1)
+			// 	];
 
-			return {
-				todoData: newArr
-			};
-		});
+			// 	return {
+			// 		todoData: newArr
+			// 	};
+			// });
+		// });
 	}
 
 	onAddItem = (text) => {
 		const newItem = this.createItem(text);
 
-		this.setState(({todoData}) => {
+		this.setState(({tasks}) => {
 			const newArr = [
-				...todoData,
+				...tasks,
 				newItem
 			];
 			return {
-				todoData: newArr
+				tasks: newArr
 			};
 		});
 	}
@@ -125,28 +134,50 @@ export default class Row extends Component {
 
 	render() {
 		
-		const {todoData, isOpen, isAdd, id} = this.state;
+		// const {todoData, isOpen, isAdd, id} = this.state;
+
+		// return (
+		// 	<div className="row">
+		// 		<div className="row__head flex">
+		// 			<input type="checkbox" name={`check${id}`} id={`check${id}`} onChange={this.toggleChange} />
+		// 			<h1>Задача {id}</h1>
+		// 			<div className="row__head-btn flex">
+		// 				<button onClick={this.onOpen}>{isOpen ? 'Закрыть' : 'Открыть'}</button>
+		// 				<button onClick={this.onAdd}>{isAdd ? 'Отменить' : 'Создать'}</button>
+		// 			</div>
+		// 		</div>
+		// 		{ isOpen &&
+		// 			<>
+		// 				<TodoList
+		// 					todos={todoData}
+		// 					onDelete={this.deleteItem}
+		// 				/>
+		// 				{ isAdd &&
+		// 					<AddItems onAddItem={this.onAddItem} />
+		// 				}
+		// 			</>
+		// 		}
+		// 	</div>
+		// );
 
 		return (
-			<div className="row">
-				<div className="row__head flex">
-					<input type="checkbox" name="check1" id="check1" onChange={this.toggleChange} />
-					<h1>Задача {id}</h1>
-					<div className="row__head-btn flex">
-						<button onClick={this.onOpen}>{isOpen ? 'Закрыть' : 'Открыть'}</button>
-						<button onClick={this.onAdd}>{isAdd ? 'Отменить' : 'Создать'}</button>
-					</div>
-				</div>
-				{ isOpen &&
-					<>
-						<TodoList
-							todos={todoData}
-							onDelete={this.deleteItem}
-						/>
-						<AddItems onAddItem={this.onAddItem} />
-					</>
+			<>
+				{
+					this.state.tasks.map((task) =>
+					<Task key={task.id} id={task.id} name={task.name} {...task} >
+						{
+							task.todoData.map((child) =>
+								<TodoList
+									key={child.id}
+									{...child}
+									onDelete={this.deleteItem}
+								/>
+							)
+						}
+					</Task>
+					)
 				}
-			</div>
+			</>
 		);
 
 	}

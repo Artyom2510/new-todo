@@ -1,8 +1,12 @@
 .row {
 	display: block;
 	width: 60vw;
+	margin-bottom: 20px;
 	padding: 20px;
 	border: 2px solid black;
+	&:last-child {
+		margin-bottom: 0;
+	}
 	&__head {
 		margin-bottom: 15px;
 		h1 {

@@ -3,14 +3,14 @@ import TodoListItem from '../TodoListItem';
 
 import './index.scss';
 
-const TodoList = ({ todos, onDelete}) => {
+const TodoList = ({ todos }) => {
 
 	const li = todos.map(item => {
 
-		const { id, ...itemProps } = item;
+		const { id, onDelete, ...itemProps } = item.props;
 
 		return (
-			<li key={item.id} className="list__item flex">
+			<li key={id} className="list__item flex">
 				<TodoListItem
 					{...itemProps}
 					onDelete={() => onDelete(id)}

@@ -5,15 +5,11 @@ import './index.scss';
 
 export default class Container extends Component {
 
-
 	render() {
 		return (
-			<>
-				<div className="container">
-					<Row />
-					<Row />
-				</div>
-			</>
+			<div className="container">
+				<Row />
+			</div>
 		);
 	}
 
