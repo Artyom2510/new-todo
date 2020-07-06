@@ -29,3 +29,13 @@
 		padding: 10px;
 	}
 }
+
+.btn-del {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .2s ease;
+	&.visible {
+		visibility: visible;
+		opacity: 1;
+	}
+}

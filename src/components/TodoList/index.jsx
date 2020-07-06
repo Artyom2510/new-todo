@@ -7,14 +7,16 @@ const TodoList = ({ todos }) => {
 
 	const li = todos.map(item => {
 
-		const { id, onDelete, ...itemProps } = item.props;
+		const { id, parentId, onDelete, onToggleChange, onToggleImportant, ...itemProps } = item.props;
 
 		return (
 			<li key={id} className="list__item flex">
 				<TodoListItem
 					{...itemProps}
-					onDelete={() => onDelete(id)}
-					// onToggleDone={() => onToggleDone(id)}
+					onDelete={() => onDelete(parentId, id)}
+					onToggleChange={() => onToggleChange(parentId, id)}
+					onToggleImportant={() => onToggleImportant(parentId, id)}
+					id={id}
 				/>
 			</li>
 		);

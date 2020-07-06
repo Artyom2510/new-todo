@@ -5,7 +5,7 @@ export default class AddItems extends Component {
 
 	state = {
 		label: ''
-	}
+	};
 
 	onChange = (e) => {
 		this.setState({
@@ -14,14 +14,19 @@ export default class AddItems extends Component {
 	};
 
 	onSubmit = (e) => {
+		const {label} = this.state;
+
+		const {onAddItem, parentId} = this.props;
+
 		e.preventDefault();
-		this.props.onAddItem(this.state.label);
+		onAddItem(parentId, label);
 		this.setState({
 			label: ''
 		});
 	};
 
 	render() {
+		const {label} = this.state;
 		return(
 			<form
 				className="item-add flex"
@@ -33,7 +38,7 @@ export default class AddItems extends Component {
 					onChange={this.onChange}
 					placeholder="WTF"
 					autoFocus={true}
-					value={this.state.label}
+					value={label}
 				/>
 				<button type="submit">Добавить</button>
 			</form>

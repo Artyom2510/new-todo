@@ -2,6 +2,7 @@
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
+	counter-reset: cnt;
 	&__item {
 		width: 100%;
 		margin-bottom: 15px;
@@ -11,5 +12,30 @@
 		&:last-child {
 			margin-bottom: 0;
 		}
+		&:nth-child(n+10) {
+			.label {
+				&::before {
+					content: counter(cnt)' ';
+				}
+			}
+		}
+	}
+}
+
+.label {
+	display: inline-block;
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	&_done {
+		text-decoration: line-through;
+	}
+	&_imp {
+		color: yellowgreen;
+		font-weight: 800;
+	}
+	&::before {
+		content: '0'counter(cnt)' ';
+		counter-increment: cnt;
 	}
 }

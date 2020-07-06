@@ -1,0 +1,6 @@
+.check {
+	visibility: hidden;
+	&_show {
+		visibility: visible;
+	}
+}

@@ -1,38 +1,41 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import './index.scss';
 
-export default class TodoListItem extends Component {
+const TodoListItem = ({label = false, onDelete, onToggleChange, id, checked, important, onToggleImportant}) => {
+	let classNames = 'label';
+	let btnClass = "btn-del";
 
-	// state = {
-	// 	checked: false,
-	// }
+	if (checked) {
+		btnClass += " visible";
+		classNames += " label_done";
+	}
 
-	// onChange = (id) => {
-	// 	this.setState({
-	// 		checked: !this.state.checked
-	// 	});
-	// }
+	if (important) {
+		classNames += ' label_imp';
+	}
 
-	render() {
-
-		const {label = false, onDelete} = this.props;
-
-		console.log(label)
-
-
-		let classNames = 'label';
-		// if (done) {
-		// 	classNames += ' done';
-		// }
-
-		// onChange={this.onChange} 
-		return (
-			<>
-				<input type="checkbox" name="" id=""/>
-				<span className={classNames}> {label} </span>
-				<button type="button" className="btn-del" onClick={onDelete}>Удалить</button>
-			</>
-		);
-	};
+	return (
+		<>
+			<input
+				type="checkbox"
+				name={`check-item${id}`}
+				id={`check-item${id}`}
+				checked={checked}
+				onChange={onToggleChange}
+			/>
+			<label
+				htmlFor={`check-item${id}`}
+				className={classNames}
+			>
+				{label}
+			</label>
+			<div>
+				<button type="button" onClick={onToggleImportant}>Важно</button>
+				<button type="button" className={btnClass} onClick={onDelete}>Удалить</button>
+			</div>
+		</>
+	);
 }
+
+export default TodoListItem;
