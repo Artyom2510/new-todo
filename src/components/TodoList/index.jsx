@@ -3,19 +3,19 @@ import TodoListItem from '../TodoListItem';
 
 import './index.scss';
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, parentId }) => {
 
 	const li = todos.map(item => {
 
-		const { id, parentId, onDelete, onToggleChange, onToggleImportant, ...itemProps } = item.props;
+		const { id, onDelete, onToggleChange, onToggleImportant, ...itemProps } = item.props;
 
 		return (
 			<li key={id} className="list__item flex">
 				<TodoListItem
 					{...itemProps}
 					onDelete={() => onDelete(parentId, id)}
-					onToggleChange={() => onToggleChange(parentId, id)}
-					onToggleImportant={() => onToggleImportant(parentId, id)}
+					onToggleChange={() => onToggleChange(parentId, id, "checked")}
+					onToggleImportant={() => onToggleImportant(parentId, id, "important")}
 					id={id}
 				/>
 			</li>

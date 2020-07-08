@@ -15,14 +15,15 @@ export default class AddItems extends Component {
 
 	onSubmit = (e) => {
 		const {label} = this.state;
-
-		const {onAddItem, parentId} = this.props;
-
 		e.preventDefault();
-		onAddItem(parentId, label);
-		this.setState({
-			label: ''
-		});
+
+		if (label) {
+			const {onAddItem, parentId} = this.props;
+			onAddItem(parentId, label);
+			this.setState({
+				label: ''
+			});
+		}
 	};
 
 	render() {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './index.scss';
 
-const TodoListItem = ({label = false, onDelete, onToggleChange, id, checked, important, onToggleImportant}) => {
+const TodoListItem = ({label = false, onDelete, onToggleChange, onToggleImportant, id, checked, important}) => {
 	let classNames = 'label';
 	let btnClass = "btn-del";
 
