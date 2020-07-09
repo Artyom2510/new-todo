@@ -56,7 +56,7 @@ export default class Task extends Component {
 			const isActive = filter === name ? 'active' : '';
 
 			return (
-				<button 
+				<button
 					type="button"
 					className={`${isActive}`}
 					key={name}
